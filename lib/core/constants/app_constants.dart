@@ -10,15 +10,12 @@ class AppConstants {
   // Firebase Collections
   static const String usersCollection = 'usuarios';
   static const String studentsCollection = 'students';
-  static const String bathroomsCollection = 'bathrooms';
   static const String mapasCollection = 'mapas';
   
   // Routes
   static const String loginRoute = '/auth/login';
   static const String homeRoute = '/home';
-  static const String bathroomsRoute = '/bathrooms';
   static const String friendsRoute = '/friends';
   static const String navigationRoute = '/navigation';
-  static const String chatbotRoute = '/chatbot';
 }
 

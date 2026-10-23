@@ -6,17 +6,6 @@ import '../../features/auth/domain/index.dart' as auth_domain;
 import '../../features/auth/domain/use_cases/login_use_case.dart';
 import '../../features/auth/domain/use_cases/logout_use_case.dart';
 import '../../features/auth/domain/use_cases/register_use_case.dart';
-import '../../features/bathrooms/data/data_sources/bathroom_remote_data_source.dart';
-import '../../features/bathrooms/data/repositories/bathroom_repository_impl.dart';
-import '../../features/bathrooms/domain/repositories/bathroom_repository.dart';
-import '../../features/bathrooms/domain/use_cases/get_bathrooms_grouped_by_floor_use_case.dart';
-import '../../features/bathrooms/domain/use_cases/get_user_name_use_case.dart';
-import '../../features/bathrooms/domain/use_cases/update_bathroom_status_use_case.dart';
-import '../../features/chatbot/data/data_sources/chatbot_remote_data_source.dart';
-import '../../features/chatbot/data/repositories/chatbot_repository_impl.dart';
-import '../../features/chatbot/domain/repositories/chatbot_repository.dart';
-import '../../features/chatbot/domain/use_cases/reset_chat_use_case.dart';
-import '../../features/chatbot/domain/use_cases/send_message_use_case.dart';
 import '../../features/friends/data/data_sources/friends_remote_data_source.dart';
 import '../../features/friends/data/repositories/friends_repository_impl.dart';
 import '../../features/friends/domain/repositories/friends_repository.dart';
@@ -67,16 +56,6 @@ Future<void> init() async {
     () => AuthRemoteDataSource(),
   );
 
-  // Bathrooms
-  sl.registerLazySingleton<BathroomRemoteDataSource>(
-    () => BathroomRemoteDataSource(),
-  );
-
-  // Chatbot
-  sl.registerLazySingleton<ChatbotRemoteDataSource>(
-    () => ChatbotRemoteDataSource(),
-  );
-
   // Friends
   sl.registerLazySingleton<FriendsRemoteDataSource>(
     () => FriendsRemoteDataSource(),
@@ -119,16 +98,6 @@ Future<void> init() async {
     () => AuthRepositoryImpl(sl<AuthRemoteDataSource>()),
   );
 
-  // Bathrooms
-  sl.registerLazySingleton<BathroomRepository>(
-    () => BathroomRepositoryImpl(sl<BathroomRemoteDataSource>()),
-  );
-
-  // Chatbot
-  sl.registerLazySingleton<ChatbotRepository>(
-    () => ChatbotRepositoryImpl(sl<ChatbotRemoteDataSource>()),
-  );
-
   // Friends
   sl.registerLazySingleton<FriendsRepository>(
     () => FriendsRepositoryImpl(sl<FriendsRemoteDataSource>()),
@@ -159,15 +128,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => LoginUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => LogoutUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => RegisterUseCase(sl<AuthRepository>()));
-
-  // Bathrooms
-  sl.registerLazySingleton(() => GetBathroomsGroupedByFloorUseCase(sl<BathroomRepository>()));
-  sl.registerLazySingleton(() => GetUserNameUseCase());
-  sl.registerLazySingleton(() => UpdateBathroomStatusUseCase(sl<BathroomRepository>()));
-
-  // Chatbot
-  sl.registerLazySingleton(() => ResetChatUseCase(sl<ChatbotRepository>()));
-  sl.registerLazySingleton(() => SendMessageUseCase(sl<ChatbotRepository>()));
 
   // Friends
   sl.registerLazySingleton(() => AddFriendUseCase(sl<FriendsRepository>()));

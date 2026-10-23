@@ -350,45 +350,6 @@ class AppTextStyles {
   }
 
   // ============================================
-  // 📝 ESTILOS ESPECIALES DE BATHROOM
-  // ============================================
-
-  /// Título de piso (18/20/16) - Bold - Color primario
-  static TextStyle bathroomFloorTitle(bool isLargePhone, bool isTablet) {
-    return TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: _fontSize(16, 18, 20, isLargePhone, isTablet),
-      color: const Color(0xFF2C2C2C),
-    );
-  }
-
-  /// Subtítulo de piso (14/15/13) - Color secundario
-  static TextStyle bathroomFloorSubtitle(bool isLargePhone, bool isTablet) {
-    return TextStyle(
-      color: const Color(0xFF757575),
-      fontSize: _fontSize(13, 14, 15, isLargePhone, isTablet),
-    );
-  }
-
-  /// Título en BathroomStatusPage (18/20/16) - w500 - Color primario
-  static TextStyle bathroomTitle(bool isLargePhone, bool isTablet) {
-    return TextStyle(
-      color: AppStyles.textPrimary,
-      fontSize: _fontSize(16, 18, 20, isLargePhone, isTablet),
-      fontWeight: FontWeight.w500,
-    );
-  }
-
-  /// Texto de filtro (16) - Bold/Normal según selección
-  static TextStyle bathroomFilter(bool isSelected, Color color) {
-    return TextStyle(
-      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-      color: color,
-      fontSize: 16,
-    );
-  }
-
-  // ============================================
   // 📝 ESTILOS ESPECIALES DE FRIENDS
   // ============================================
 
@@ -468,19 +429,6 @@ class AppTextStyles {
     fontSize: 12,
     color: Colors.grey[500],
   );
-
-  // ============================================
-  // 📝 ESTILOS ESPECIALES DE CHATBOT
-  // ============================================
-
-  /// Texto de mensaje (15/16/14) - Color dinámico - height 1.4
-  static TextStyle chatbotMessage(bool isLargePhone, bool isTablet, Color color) {
-    return TextStyle(
-      color: color,
-      fontSize: _fontSize(14, 15, 16, isLargePhone, isTablet),
-      height: 1.4,
-    );
-  }
 
   // ============================================
   // 📝 ESTILOS ESPECIALES DE QR SCAN

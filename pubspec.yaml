@@ -55,14 +55,8 @@ dependencies:
   # Inyección de dependencias
   get_it: ^7.6.4
 
-  # Para chatbot de IA (Google Gemini)
-  google_generative_ai: ^0.4.7
-
   # Para parsear XML/SVG
   xml: ^6.4.2
-
-  # Mapbox Maps
-  mapbox_maps_flutter: ^2.12.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
