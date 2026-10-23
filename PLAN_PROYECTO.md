@@ -14,6 +14,12 @@ Las claves reales NO se copian aquí.
 - Gemini se llama solo desde una Cloud Function.
 - Si SENATI exige más adelante su propia infraestructura o reportes SQL, se reevalúa (ver T-72).
 
+## Cambios de alcance
+- **Se eliminó el chatbot de Gemini**: ya no hay key de Gemini en el código (T-01 y T-30 quedan sin objeto). Pendiente fuera del código: **revocar la key antigua** en Google AI Studio, porque sigue en el historial de git.
+- **Se eliminó la pantalla de Mapbox**: ya no hay token en el código (T-02). Pendiente: **rotar el token** en la cuenta de Mapbox.
+- **Se eliminó la función de baños** (T-44 ya no aplica). Pendiente: quitar la regla `bathrooms` de `firestore.rules` (se hace en T-03) y borrar la colección en la consola de Firebase.
+- Para compilar en Android hace falta **JDK 21** (el Java 25 de Android Studio falla con Gradle 8.12): `flutter config --jdk-dir=<ruta a un JDK 21>`.
+
 ## Decisiones pendientes
 - [ ] **D1** ¿Se usa el plan Blaze de Firebase? Cloud Functions requiere Blaze (tiene capa gratuita, pero pide tarjeta). Si no hay tarjeta, ver alternativa en T-20.
 - [ ] **D2** Contacto en SENATI (SSO, hosting, privacidad).
@@ -22,14 +28,14 @@ Las claves reales NO se copian aquí.
 
 ## SPRINT 0 – Cerrar riesgos (🔴 empezar hoy)
 
-### T-01 · Revocar y sacar la API key de Gemini · `APP` · 🔴
+### T-01 · ~~Revocar y sacar la API key de Gemini~~ · `APP` · ✅ código / ⏳ revocar la key
 Problema (crítico): hardcodeada en `lib/features/chatbot/data/data_sources/chatbot_service.dart:16`, en el historial de git y en el APK.
 - [ ] Revocar la key actual en Google AI Studio y crear una nueva.
 - [ ] Quitarla del código; leerla con `String.fromEnvironment('GEMINI_KEY')` y `--dart-define` (temporal hasta T-30).
 - [ ] Restringir la nueva key por app/API y poner cuota baja.
 - **Hecho cuando:** no hay ninguna key en el repo y el chatbot funciona con `--dart-define`.
 
-### T-02 · Sacar y restringir el token de Mapbox · `APP` · 🔴
+### T-02 · ~~Sacar y restringir el token de Mapbox~~ · `APP` · ✅ código / ⏳ rotar el token
 Problema: token `pk.` hardcodeado en `mapbox_map_page.dart:19` y se imprime parcialmente en `:69`.
 - [ ] Moverlo a `--dart-define=MAPBOX_TOKEN`.
 - [ ] Quitar el `print` del token.
@@ -39,7 +45,7 @@ Problema: token `pk.` hardcodeado en `mapbox_map_page.dart:19` y se imprime parc
 ### T-03 · Endurecer `firestore.rules` · `FB` · 🔴
 Problema (alto): cualquier usuario autenticado escribe en `mapas`, `salones` y `bathrooms`; hay regla comodín de lectura global.
 - [ ] `mapas` y `salones`: escritura solo con custom claim `admin == true`.
-- [ ] `bathrooms`: solo actualizar campos de estado, con tipos validados.
+- [ ] Quitar la regla de `bathrooms` (la función ya no existe).
 - [ ] Validar esquema en `usuarios` (`hasOnly`, tipos, rangos): que un cliente no pueda escribir `estado` arbitrario.
 - [ ] Eliminar la regla comodín `match /{document=**}`.
 - [ ] Pruebas con el emulador de Firestore.
@@ -144,7 +150,7 @@ Problema: `Timer.periodic` cada 3 s para GPS más otros dos timers en `home_page
 
 ## SPRINT 3 – Usuarios, roles y privacidad (🟠)
 
-### T-30 · Mover el chatbot a una Cloud Function · `FB` + `APP` · 🟠 (⛔D1)
+### T-30 · ~~Mover el chatbot a una Cloud Function~~ · NO APLICA (chatbot eliminado)
 - [ ] Función `chat` que valida el usuario (y App Check) y limita peticiones.
 - [ ] Guardar la key de Gemini en Secret Manager, no en la app.
 - [ ] Prompt de sistema con contexto del campus y límite de longitud.
@@ -219,7 +225,7 @@ Problema: el grafo se lee completo de Firestore (cientos de documentos) en cada 
 - [ ] Optimizar `map_route_painter` (`RepaintBoundary`, `shouldRepaint`).
 - **Hecho cuando:** se puede llegar a un salón siguiendo solo las instrucciones.
 
-### T-44 · Estado de baños en tiempo real · `FB` + `APP` · 🟡
+### T-44 · ~~Estado de baños en tiempo real~~ · NO APLICA (función eliminada)
 - [ ] `snapshots()` con `updatedBy` y `updatedAt`.
 - [ ] El estado vuelve a "desconocido" tras 30 minutos (función programada).
 - [ ] Límite de frecuencia por usuario en reglas/función.
